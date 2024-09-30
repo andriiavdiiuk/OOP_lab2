@@ -17,7 +17,7 @@ namespace Lab2
             BaseGameAccount Player3 = new BonusWinStreakAccount("Player 3", 1000);
             Random rand = new Random();
 
-            for (int i = 0; i < 50; i++) 
+            for (int i = 0; i < 10; i++) 
             {
                 GameManager.Play(Player1, Player2);
                 GameManager.Play(Player1, Player3);

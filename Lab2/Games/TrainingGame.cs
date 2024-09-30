@@ -9,10 +9,6 @@ namespace Lab2.Games
 {
     public class TrainingGame : BaseGame
     {
-        private Random rand = new Random();
-
-        public TrainingGame(BaseGameAccount winner, BaseGameAccount loser) : base(winner, loser) { }
-
         public override int GetGameRating()
         {
             return 0;

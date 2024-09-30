@@ -26,7 +26,7 @@ namespace Lab2.GameAccounts
             {
                 throw new ArgumentException("Rating cannot be negative.", nameof(rating));
             }
-            return -rating;
+            return rating;
         }     
     }
 }

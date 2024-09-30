@@ -18,8 +18,8 @@ namespace Lab2
             if (player1Wins)
             {
                 BaseGame game = RandomGame(player1, player2);
-                //GameRecord record = new GameRecord(player1, player2, game);
-                GameRepository.AddGame(game);
+                GameRecord record = new GameRecord(player1, player2, game);
+                GameRepository.AddGame(record);
                 player1.WinGame(player1, game);
                 player2.LoseGame(player2, game);
 
@@ -27,8 +27,8 @@ namespace Lab2
             else
             {
                 BaseGame game = RandomGame(player2, player1);
-                //GameRecord record = new GameRecord(player2,player1 ,game);
-                GameRepository.AddGame(game);
+                GameRecord record = new GameRecord(player2,player1 ,game);
+                GameRepository.AddGame(record);
                 player1.LoseGame(player2, game);
                 player2.WinGame(player1, game);
             }
@@ -41,15 +41,15 @@ namespace Lab2
             {
                 default:
                 case 0:
-                    return GameFactory.GetStandardGame(winner, loser);
+                    return GameFactory.GetStandardGame();
                 case 1:
-                    return GameFactory.GetTrainingGame(winner, loser);
+                    return GameFactory.GetTrainingGame();
                 case 2:
                     BaseGameAccount playerWithRating;
                     if (random.Next(2) == 0) playerWithRating = winner;
                     else playerWithRating = loser;
 
-                    return GameFactory.GetSinglePlayerRatingGame(winner, loser, playerWithRating);
+                    return GameFactory.GetSinglePlayerRatingGame(playerWithRating);
             }
         }
     }

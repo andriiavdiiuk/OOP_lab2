@@ -9,19 +9,19 @@ namespace Lab2.Games
 {
     public static class GameFactory
     {
-        public static StandardGame GetStandardGame(BaseGameAccount winner, BaseGameAccount loser)
+        public static StandardGame GetStandardGame()
         {
-            return new StandardGame(winner,loser);
+            return new StandardGame();
         }
 
-        public static TrainingGame GetTrainingGame(BaseGameAccount winner, BaseGameAccount loser)
+        public static TrainingGame GetTrainingGame()
         {
-            return new TrainingGame(winner, loser);
+            return new TrainingGame();
         }
 
-        public static SinglePlayerRatingGame GetSinglePlayerRatingGame(BaseGameAccount winner, BaseGameAccount loser, BaseGameAccount rankedPlayer)
+        public static SinglePlayerRatingGame GetSinglePlayerRatingGame(BaseGameAccount rankedPlayer)
         {
-            return new SinglePlayerRatingGame(winner, loser,rankedPlayer);
+            return new SinglePlayerRatingGame(rankedPlayer);
         }
     }
 }

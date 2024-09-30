@@ -26,7 +26,7 @@ namespace Lab2
             Loser = loser;
             Rating = game.GetGameRating();
             WinnerRatingChange = winner.CalculateWinRating(game.GetRatingForPlayer(winner));
-            LoserRatingChange = loser.CalculateWinRating(game.GetRatingForPlayer(loser));
+            LoserRatingChange = -loser.CalculateLoseRating(game.GetRatingForPlayer(loser));
             Game = game;
 
             TotalIds++;

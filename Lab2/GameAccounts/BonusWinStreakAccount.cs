@@ -20,6 +20,10 @@ namespace Lab2.GameAccounts
             {
                 throw new ArgumentException("Rating cannot be negative.", nameof(rating));
             }
+            if (rating  == 0)
+            {
+                return 0;
+            }
             return rating + 2 * Strike;
         }
         public override int CalculateLoseRating(int rating)
@@ -28,7 +32,7 @@ namespace Lab2.GameAccounts
             {
                 throw new ArgumentException("Rating cannot be negative.", nameof(rating));
             }
-            return -rating;
+            return rating;
         }
 
         protected override void OnWin()

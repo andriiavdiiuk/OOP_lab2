@@ -11,9 +11,8 @@ namespace Lab2.Games
     {
         private Random rand = new Random();
         private int gameRating = -1;
-
         private BaseGameAccount RankedPlayer;
-        public SinglePlayerRatingGame(BaseGameAccount winner, BaseGameAccount loser,BaseGameAccount rankedPlayer) : base(winner,loser)
+        public SinglePlayerRatingGame(BaseGameAccount rankedPlayer)
         {  
             RankedPlayer = rankedPlayer;
         }

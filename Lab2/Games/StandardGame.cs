@@ -13,7 +13,6 @@ namespace Lab2.Games
         private Random rand = new Random();
         private int gameRating = -1;
 
-        public StandardGame(BaseGameAccount winner, BaseGameAccount loser) : base(winner, loser) { }
         public override int GetGameRating()
         {
             if (gameRating < 0)
