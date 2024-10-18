@@ -11,11 +11,11 @@ namespace Lab2
     {
         static void Main(string[] args)
         {      
-            BaseGameAccount Player1 = new StandardAccount("Player 1", 1000);
-            BaseGameAccount Player2 = new HalfLossPointsAccount("Player 2", 1000);
-            BaseGameAccount Player3 = new BonusWinStreakAccount("Player 3", 1000);
+            BaseGameAccount Player1 = new StandardAccount("Player 1", 100);
+            BaseGameAccount Player2 = new HalfLossPointsAccount("Player 2", 100);
+            BaseGameAccount Player3 = new BonusWinStreakAccount("Player 3", 100);
 
-            for (int i = 0; i < 20; i++) 
+            for (int i = 0; i < 10; i++) 
             {
                 GameManager.PlayRandomGame(Player1, Player2);
                 GameManager.PlayRandomGame(Player1, Player3);

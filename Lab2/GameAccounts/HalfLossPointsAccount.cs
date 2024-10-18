@@ -26,7 +26,7 @@ namespace Lab2.GameAccounts
             {
                 throw new ArgumentException("Rating cannot be negative.", nameof(rating));
             }
-            return (int)Math.Round(rating / 2d);
+            return rating / 2;
         }
 
     }

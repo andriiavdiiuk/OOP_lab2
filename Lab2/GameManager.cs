@@ -18,16 +18,16 @@ namespace Lab2
             {
                 default:
                 case 0:
-                    game = GameFactory.GetStandardGame();
+                    game = GameFactory.GetGame(GameType.Standard);
                     break;
                 case 1:
-                    game = GameFactory.GetTrainingGame();
+                    game = GameFactory.GetGame(GameType.Training);
                     break;
                 case 2:
                     BaseGameAccount playerWithRating;
                     if (random.Next(2) == 0) playerWithRating = player1;
                     else playerWithRating = player2;
-                    game = GameFactory.GetSinglePlayerRatingGame(playerWithRating);
+                    game = GameFactory.GetGame(GameType.SinglePlayer,playerWithRating);
                     break;
             }
             game.Play(player1, player2);
