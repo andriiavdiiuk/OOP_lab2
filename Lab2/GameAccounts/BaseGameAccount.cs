@@ -10,7 +10,6 @@ namespace Lab2.GameAccounts
     public abstract class BaseGameAccount : IEquatable<BaseGameAccount>
     {
         protected int _currentRating = 1;
-        public int BaseRating { get; private set; }
         public string Username { get; protected set; }
         public int CurrentRating
         {
@@ -46,21 +45,52 @@ namespace Lab2.GameAccounts
         public BaseGameAccount(string username, int baseRating)
         {
             Username = username;
-            BaseRating = baseRating;
             CurrentRating = baseRating;
         }
 
- 
+
         public void WinGame(BaseGameAccount opponent, BaseGame game)
         {
-            CurrentRating += CalculateWinRating(game.GetRatingForPlayer(this));
+            int ratingChange = CalculateWinRating(game.GetRatingForPlayer(this));
+            CurrentRating += ratingChange;
             OnWin();
+
+            GameRecord record = new GameRecord(this, opponent, game, ratingChange, CurrentRating, 0, 0, game.GetGameRating());
+            opponent.LoseGame(this, game, record);
         }
+
         public void LoseGame(BaseGameAccount opponent, BaseGame game)
-        {        
-            CurrentRating -= CalculateLoseRating(game.GetRatingForPlayer(this));
+        {
+            int ratingChange = CalculateLoseRating(game.GetRatingForPlayer(this));
+            CurrentRating -= ratingChange;
             OnLose();
+
+            GameRecord record = new GameRecord(opponent, this, game, 0, 0, -ratingChange, CurrentRating, game.GetGameRating());
+            opponent.WinGame(this, game, record);
         }
+
+        private void WinGame(BaseGameAccount opponent, BaseGame game, GameRecord record)
+        {
+            int ratingChange = CalculateWinRating(game.GetRatingForPlayer(this));
+            CurrentRating += ratingChange;
+            OnWin();
+
+            record.WinnerRatingChange = ratingChange;
+            record.WinnerRating = CurrentRating;
+            GameRepository.AddGame(record);
+        }
+
+        private void LoseGame(BaseGameAccount opponent, BaseGame game, GameRecord record)
+        {
+            int ratingChange = CalculateLoseRating(game.GetRatingForPlayer(this));
+            CurrentRating -= ratingChange;
+            OnLose();
+
+            record.LoserRatingChange = -ratingChange;
+            record.LoserRating = CurrentRating;
+            GameRepository.AddGame(record);
+        }
+
         public virtual string GetStats()
         {
             string result = $"{Username}\n";
@@ -72,9 +102,9 @@ namespace Lab2.GameAccounts
             result += "--------------------------------------------------------------------------------------------\n";
             string opponent = "";
             string winLost = "";
-            int baseRating = BaseRating;
+            int rating = 0;
             int ratingChange = 0;
-            string rating = "";
+            string ratingFormatted = "";
             List<GameRecord> history = GameRepository.GetHistory(this);
             foreach (GameRecord game in history)
             {
@@ -82,18 +112,19 @@ namespace Lab2.GameAccounts
                 {
                     opponent = game.Loser.Username;
                     ratingChange = game.WinnerRatingChange;
+                    rating = game.WinnerRating;
                     winLost = "Win";
                 }
                 else
                 {
                     opponent = game.Winner.Username;
+                    rating = game.LoserRating;
                     ratingChange = game.LoserRatingChange;
-                   
                     winLost = "Lost";
                 }
-                baseRating += ratingChange;
-                rating = $"{baseRating,-5} ({ratingChange})";
-                result += $"|{opponent,-12} | {winLost,-10} | {game.Rating,-11} | {rating + "",-13} | {game.Id,-4}| {game.Game.GetType().Name,-25} |\n";
+
+                ratingFormatted = $"{rating,-5} ({ratingChange})";
+                result += $"|{opponent,-12} | {winLost,-10} | {game.Rating,-11} | {ratingFormatted,-13} | {game.Id,-4}| {game.Game.GetType().Name,-25} |\n";
             };
             result += "--------------------------------------------------------------------------------------------\n";
 
@@ -123,5 +154,5 @@ namespace Lab2.GameAccounts
         {
             return base.GetHashCode();
         }
-}
+    }
 }

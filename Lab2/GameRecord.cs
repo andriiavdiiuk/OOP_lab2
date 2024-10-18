@@ -11,25 +11,29 @@ namespace Lab2
     class GameRecord
     {
         private static int TotalIds = 0;
+
         public int Id { get; set; }
         public BaseGameAccount Winner { get; set; }
         public BaseGameAccount Loser { get; set; }
         public BaseGame Game { get; set; }  
         public int WinnerRatingChange { get; set; }
+        public int WinnerRating { get; set; }
+        public int LoserRating { get; set; }
         public int LoserRatingChange { get; set; }
         public int Rating { get; set; }
 
-        public GameRecord(BaseGameAccount winner, BaseGameAccount loser, BaseGame game)
+        public GameRecord(BaseGameAccount winner, BaseGameAccount loser, BaseGame game, int winnerRatingChange, 
+                          int winnerRating, int loserRatingChange, int loserRating, int rating)
         {
-            Id = TotalIds;
+            Id = TotalIds++;
             Winner = winner;
             Loser = loser;
-            Rating = game.GetGameRating();
-            WinnerRatingChange = winner.CalculateWinRating(game.GetRatingForPlayer(winner));
-            LoserRatingChange = -loser.CalculateLoseRating(game.GetRatingForPlayer(loser));
             Game = game;
-
-            TotalIds++;
+            WinnerRatingChange = winnerRatingChange;
+            WinnerRating = winnerRating;
+            LoserRating = loserRating;
+            LoserRatingChange = loserRatingChange;
+            Rating = rating;
         }
     }
 }

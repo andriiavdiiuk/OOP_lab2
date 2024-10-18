@@ -9,7 +9,6 @@ namespace Lab2.Games
 {
     public class StandardGame : BaseGame
     {
-
         private Random rand = new Random();
         private int gameRating = -1;
 

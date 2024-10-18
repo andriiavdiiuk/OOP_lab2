@@ -13,14 +13,13 @@ namespace Lab2.GameAccounts
         public BonusWinStreakAccount(string username, int baseRating) : base(username, baseRating)
         {
         }
-
         public override int CalculateWinRating(int rating)
         {
             if (rating < 0)
             {
                 throw new ArgumentException("Rating cannot be negative.", nameof(rating));
             }
-            if (rating  == 0)
+            if (rating == 0)
             {
                 return 0;
             }

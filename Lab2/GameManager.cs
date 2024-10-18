@@ -10,47 +10,27 @@ namespace Lab2
     public static class GameManager
     { 
         private static Random random = new Random();
-        public static void Play(BaseGameAccount player1, BaseGameAccount player2)
-        {
-            
-            bool player1Wins = random.Next(2) == 0;
-     
-            if (player1Wins)
-            {
-                BaseGame game = RandomGame(player1, player2);
-                GameRecord record = new GameRecord(player1, player2, game);
-                GameRepository.AddGame(record);
-                player1.WinGame(player1, game);
-                player2.LoseGame(player2, game);
-
-            }
-            else
-            {
-                BaseGame game = RandomGame(player2, player1);
-                GameRecord record = new GameRecord(player2,player1 ,game);
-                GameRepository.AddGame(record);
-                player1.LoseGame(player2, game);
-                player2.WinGame(player1, game);
-            }
-        }
-        private static BaseGame RandomGame(BaseGameAccount winner, BaseGameAccount loser)
+        public static void PlayRandomGame(BaseGameAccount player1, BaseGameAccount player2)
         {
             int rand = random.Next(3);
-
+            BaseGame game;
             switch (rand)
             {
                 default:
                 case 0:
-                    return GameFactory.GetStandardGame();
+                    game = GameFactory.GetStandardGame();
+                    break;
                 case 1:
-                    return GameFactory.GetTrainingGame();
+                    game = GameFactory.GetTrainingGame();
+                    break;
                 case 2:
                     BaseGameAccount playerWithRating;
-                    if (random.Next(2) == 0) playerWithRating = winner;
-                    else playerWithRating = loser;
-
-                    return GameFactory.GetSinglePlayerRatingGame(playerWithRating);
+                    if (random.Next(2) == 0) playerWithRating = player1;
+                    else playerWithRating = player2;
+                    game = GameFactory.GetSinglePlayerRatingGame(playerWithRating);
+                    break;
             }
+            game.Play(player1, player2);
         }
     }
 }
